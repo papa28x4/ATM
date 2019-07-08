@@ -76,7 +76,6 @@
     text-align: right;
     border-radius: 0 0 5px 5px;
     border-left: 1px solid grey;
-    border-top: 1px solid grey;
     border-right: 1px solid grey;
     overflow: hidden;
 	white-space: nowrap; 
@@ -126,6 +125,44 @@ sup {
 ol{
 	text-align: left;
 }
+
+@media only screen and (orientation: portrait) {
+		
+	.row{
+    display: table;
+    width: 90vw;
+    table-layout: fixed;
+}
+
+#Instruction{
+	
+    height: 100px;
+    background: #222;
+    padding: 20px 10px 20px 20px;
+    font-size: 24px;
+   
+}
+#NumInput{
+    
+    height: 40px;
+    background:#222;
+    padding: 20px 10px 20px 20px;
+    font-size: 24px;
+   
+}
+.btnAll{
+   
+    width: 96px;
+    height: 60px;
+    border: 2px solid gray;
+    padding-top: 3px;
+	font-size: 1.6em;
+	font-weight: bold;
+}
+	}
+	@media only screen and (orientation: landscape) {
+		
+	}
 
     </style>
 </head>
