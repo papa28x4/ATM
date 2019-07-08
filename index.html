@@ -128,54 +128,89 @@ ol{
 
 @media only screen and (orientation: portrait) {
 	h1{
-		
-		font-size: 1.5em;
-		
+		font-size: 1.5em;		
 	}
 		
 	#tableParent{
-	
-	margin-left: 0
-}
+		margin-left: 0
+	}
 
 	.row{
-    display: table;
-    width: 95vw;
-    table-layout: fixed;
+		display: table;
+		width: 95vw;
+		table-layout: fixed;
+	}
+
+	#Instruction{
+		height: 20vw;
+		background: #222;
+		padding: 2vw 1vw 1vw 2vw;
+		font-size: 1em;
+	}
+
+	#NumInput{  
+		height: 10vw;
+		background:#222;
+		padding: 2vw 1vw 1vw 2vw;
+		font-size: 1em; 
+	}
+
+	.btnAll{
+		width: 23%;
+		height: 60px;
+		border: 1% solid gray;
+		padding-top: 3px;
+		font-size: 1.6em;
+		font-weight: bold;
+	}
+
+	#cancel, #clear, #enter{
+		font-size: 1em;
+	}
 }
 
-#Instruction{
-	
-    height: 20vw;
-    background: #222;
-    padding: 2vw 1vw 1vw 2vw;
-    font-size: 1em;
-   
-}
-#NumInput{
-    
-    height: 10vw;
-    background:#222;
-    padding: 2vw 1vw 1vw 2vw;
-    font-size: 1em;
-   
-}
-.btnAll{
-   
-    width: 23%;
-    height: 60px;
-    border: 1% solid gray;
-    padding-top: 3px;
-	font-size: 1.6em;
-	font-weight: bold;
-}
-#cancel, #clear, #enter{
-	font-size: 1em;
-}
+@media only screen and (orientation: landscape) {
+	h1{
+		font-size: 1.5em;		
 	}
-	@media only screen and (orientation: landscape) {
 		
+	#tableParent{
+		margin-left: 0
 	}
+
+	.row{
+		display: table;
+		width: 95vw;
+		table-layout: fixed;
+	}
+
+	#Instruction{
+		height: 20vw;
+		background: #222;
+		padding: 2vw 1vw 1vw 2vw;
+		font-size: 1em;
+	}
+
+	#NumInput{  
+		height: 10vw;
+		background:#222;
+		padding: 2vw 1vw 1vw 2vw;
+		font-size: 1em; 
+	}
+
+	.btnAll{
+		width: 23%;
+		height: 60px;
+		border: 1% solid gray;
+		padding-top: 3px;
+		font-size: 1.6em;
+		font-weight: bold;
+	}
+
+	#cancel, #clear, #enter{
+		font-size: 1em;
+	}
+}
 
     </style>
 </head>
@@ -261,7 +296,16 @@ ol{
 		cancel.on('click',function(){
 			displayValue = '';
 			numInput.html('')
-			instruction.html("Enter your PIN to proceed")
+			if(tryAgain){
+				instruction.html('<p style="font-weight:bold">Thank you for banking with us.<br> Do have a nice day<p>')
+				setTimeout(function(){
+					instruction.html("Enter your PIN to proceed")
+				}, 2500)
+			}
+			else{
+				instruction.html("Enter your PIN to proceed")
+			}
+			
 			tryAgain = false;
 			isPassword = true;
 			isOption = false;
@@ -287,7 +331,7 @@ ol{
 								},13500)
 								setTimeout(function(){
 									instruction.html("<p>Your transaction is complete.</p> <p>Would you like to perform another transaction?</p><p><span>'Yes'<span> press <span style='color:green'>Enter</span>, <span>'No' press <span style='color:red'>Cancel</span></p>")
-								},15000)
+								},15500)
 								dailyMax += Number(displayValue)
 								balance -= displayValue
 								displayValue = ''
@@ -313,16 +357,22 @@ ol{
 				}
 			}
 			else if(isDeposit){
-				balance += Number(displayValue);
-				instruction.html("Your request is being Processed. Please wait")
-				setTimeout(function(){
-					instruction.html(`You have successfully deposited ₦${numberWithCommas2(displayValue)} <p>Would you like to perform another transaction?</p><p><span>'Yes'<span> press <span style='color:green'>Enter</span>, <span>'No' press <span style='color:red'>Cancel</span></p> `)
+				if(displayValue % 1000 == 0){
+					balance += Number(displayValue);
+					instruction.html("Your request is being Processed. Please wait")
+					setTimeout(function(){
+						instruction.html(`You have successfully deposited ₦${numberWithCommas2(displayValue)} <p>Would you like to perform another transaction?</p><p><span>'Yes'<span> press <span style='color:green'>Enter</span>, <span>'No' press <span style='color:red'>Cancel</span></p> `)
+						displayValue = ''
+						numInput.html(displayValue)
+						isDeposit = false;
+						tryAgain = true;	
+					}, 3000)
+				}
+				else{
+					instruction.html("Please enter an amount in multiples of 1000")
 					displayValue = ''
 					numInput.html(displayValue)
-					isDeposit = false;
-					tryAgain = true;	
-				}, 3000)
-				
+				}
 			}
 			else if(tryAgain){
 				isOption = true;
