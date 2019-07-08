@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+    <title>SI Bank Plc</title>
+    <style>
+    *{
+        box-sizing: border-box;
+			
+		
+	}
+
+    body{
+		
+ 		 -webkit-touch-callout: none; /* iOS Safari */
+   		 -webkit-user-select: none; /* Safari */
+     	 -khtml-user-select: none; /* Konqueror HTML */
+      	 -moz-user-select: none; /* Firefox */
+      	 -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+	} 
+
+	h1{
+		margin-top: 7vw;
+		margin-left: calc(50% - 50vw);
+		font-size: 3em;
+		text-align: center;
+       	color: #f2395a;
+     	-webkit-transform: skew(-5deg, -5deg) rotate(5deg);
+        transform: skew(-5deg, -5deg) rotate(5deg);
+    	-webkit-transform-origin: center center;
+        transform-origin: center center;
+        text-shadow: 1px 1px #d10e31,
+                 	 2px 2px #d10e31,
+                 	 3px 3px #d10e31,
+                 	 4px 4px #d10e31,
+                 	 5px 5px #d10e31,
+                 	 6px 6px #d10e31,
+                 	 7px 7px #d10e31,
+                	 8px 8px #890920,
+                  	 9px 9px #890920,
+                 	 10px 10px #890920,
+                  	 11px 11px 15px rgba(0,0,0,0.5);
+	}
+	.row{
+    display: table;
+    width: 500px;
+    table-layout: fixed;
+}
+
+#Instruction{
+	box-sizing: content-box;
+    height: 100px;
+    background: #222;
+    padding: 20px 10px 20px 20px;
+    font-size: 24px;
+    text-align: right;
+    border-radius: 5px 5px 0 0;
+    border-left: 1px solid grey;
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
+    overflow: hidden;
+	white-space: nowrap; 
+	color: white;
+}
+#NumInput{
+    box-sizing: content-box;
+    height: 40px;
+    background:#222;
+    padding: 20px 10px 20px 20px;
+    font-size: 24px;
+    text-align: right;
+    border-radius: 0 0 5px 5px;
+    border-left: 1px solid grey;
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
+    overflow: hidden;
+	white-space: nowrap; 
+	color: white;
+}
+
+.column{
+    display: table-cell;
+}
+
+.btnAll{
+    background-color: silver;
+    width: 96px;
+    height: 60px;
+    border: 2px solid gray;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding-top: 3px;
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+#tableParent{
+	border-radius: 5px;
+	/* border: 4px solid red; */
+	margin-left: calc(50% - 250px)
+}
+
+sup { 
+	/* position: relative; 
+	top: -0.5em; */
+	padding: 5px;
+	font-size: 60%; 
+	vertical-align: super;
+	}
+
+#cancel{
+	color: red;
+}
+
+#clear{
+	color: yellow;
+}
+
+#enter{
+	color: green;
+}
+
+ol{
+	text-align: left;
+}
+
+    </style>
+</head>
+<body>
+	<div id="wrapper">
+		<h1> WELCOME TO PAPA28x4 <br> E-BANKING SERVICE</h1>
+		<div id="tableParent">
+			<div class=row>
+				<div class="display column" id="Instruction">Enter your PIN to proceed</div>
+			</div>
+
+		   <div class=row>
+				<div class="display column" id="NumInput"></div>
+			</div>
+			
+			<div class=row>
+				<div class="btnAll num-btn column" id="one"><span>1</span><sup>QZ</sup></div>
+				<div class="btnAll num-btn column" id="two"><span>2</span><sup>ABC</sup></div>
+				<div class="btnAll num-btn column" id="three"><span>3</span><sup>DEF</sup></div>
+				<div class="btnAll operator column" id="cancel">CANCEL</div> 
+			</div>
+
+			<div class=row>
+				<div class="btnAll num-btn column" id="four"><span>4</span><sup>GHI</sup></div>
+				<div class="btnAll num-btn column" id="five"><span>5</span><sup>JKL</sup></div>
+				<div class="btnAll num-btn column" id="six"><span>6</span><sup>MNO</sup></div>
+				<div class="btnAll operator column" id="clear">CLEAR</div>       
+			</div>
+			
+			<div class=row>
+				<div class="btnAll num-btn column" id="seven"><span>7</span><sup>PRS</sup></div>
+				<div class="btnAll num-btn column" id="eight"><span>8</span><sup>TUV</sup></div>
+				<div class="btnAll num-btn column" id="nine"><span>9</span><sup>WXY</sup></div>
+				<div class="btnAll operator column" id="enter">ENTER</div> 
+			</div>
+			
+			<div class=row>
+				<div class="btnAll column"></div>
+				<div class="btnAll num-btn column" id="zero"><span>0</span></div>
+				<div class="btnAll column"></div> 
+				<div class="btnAll column"></div> 
+			</div>
+		</div>
+	
+    </div>   
+	<script src="jquery-3.4.1.js"></script>
+	<script src="jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script>
+		$(document).ready(function(){
+		
+		let numberButtons = $('.num-btn')
+		let instruction = $('#Instruction')
+		let numInput = $('#NumInput')
+		let enter = $('#enter')
+		let cancel = $('#cancel')
+		let clear = $('#clear')
+		let databasePwd = '1234'
+		let option1 = "Enter your password to proceed"
+		let audio = document.createElement('audio')
+		let isOption = false;
+		let isWithdraw = false;
+		let isBalance = false;
+		let isDeposit = false;
+		let isPassword = true;
+		let balance = 100000;
+		let tryAgain = false;
+		let pwdCount = 0;
+		let optionNumber;
+		let dailyMax = 0;
+		let displayValue = '';
+		
+		numberButtons.on('click',function(){	
+			let num = $(this).children('span').text();
+			displayValue += num;
+			numInput.html(displayValue);
+		})
+
+		clear.on('click', function(){
+			displayValue = '';
+    		$('#NumInput').html('');
+		})
+
+		cancel.on('click',function(){
+			displayValue = '';
+			numInput.html('')
+			instruction.html("Enter your PIN to proceed")
+			tryAgain = false;
+			isPassword = true;
+			isOption = false;
+		})
+		
+		enter.on('click', function(){
+
+			if(isPassword){
+				comparePassword()
+			}
+			else if(isOption){
+				options()	
+			}
+			else if(isWithdraw){
+				if(displayValue % 1000 == 0){
+					if(displayValue <= 40000){
+						if((dailyMax + Number(displayValue)) <= 150000){
+							if(displayValue <=(balance - 1000)){
+								instruction.html("Your request is being Processed. Please wait")
+								setTimeout(playAudio, 1000)
+								setTimeout(function(){
+									instruction.html('Kindly collect your cash')
+								},13500)
+								setTimeout(function(){
+									instruction.html("<p>Your transaction is complete.</p> <p>Would you like to perform another transaction?</p><p><span>'Yes'<span> press <span style='color:green'>Enter</span>, <span>'No' press <span style='color:red'>Cancel</span></p>")
+								},15000)
+								dailyMax += Number(displayValue)
+								balance -= displayValue
+								displayValue = ''
+								numInput.html(displayValue)
+								isWithdraw = false;
+								tryAgain = true;
+								
+							}else if(displayValue > (balance - 1000)){
+								instruction.html("Sorry, you have insufficient balance")
+							}
+						}else{
+							instruction.html("<p style='text-align:left'>Sorry, you have exceeded the Maximum <br> allowed daily withdrawal<p>")
+						}
+						
+					}else{
+						instruction.html("Please enter an amount not greater than ₦40,000")
+					}
+				}
+				else{
+					instruction.html("Enter an amount in multiples of 1000")
+					displayValue = ''
+					numInput.html(displayValue)
+				}
+			}
+			else if(isDeposit){
+				balance += Number(displayValue);
+				instruction.html("Your request is being Processed. Please wait")
+				setTimeout(function(){
+					instruction.html(`You have successfully deposited ₦${numberWithCommas2(displayValue)} <p>Would you like to perform another transaction?</p><p><span>'Yes'<span> press <span style='color:green'>Enter</span>, <span>'No' press <span style='color:red'>Cancel</span></p> `)
+					displayValue = ''
+					numInput.html(displayValue)
+					isDeposit = false;
+					tryAgain = true;	
+				}, 3000)
+				
+			}
+			else if(tryAgain){
+				isOption = true;
+				instruction.html("<p style='text-align:left'>Please select an option</p> <ol><li>Balance</li> <li>Withdraw</li> <li>Deposit</li></ol>")
+				tryAgain = false;
+			}
+			})
+
+		function comparePassword(){
+			 let userPwd = displayValue
+			 displayValue = ''
+			 let option2;
+			if(pwdCount < 3){
+				if(userPwd === databasePwd){
+				option2 = "<p style='text-align:left'>Please select an option</p> <ol><li>Balance</li> <li>Withdraw</li> <li>Deposit</li></ol>"
+				isOption = true;
+				isPassword = false;
+			}else{
+				option2 = "Password is incorrect, try again"
+				pwdCount++
+			}
+			}else{
+				option2 = "<p style='text-align:left'>You have exceed the maximum number of tries <br> allowed. Please contact your bank</p>"
+			}
+			instruction.html(option2)
+			numInput.html(displayValue)
+		}
+
+		function options(){
+			if(displayValue == 1){
+					myBalance()
+				}else if(displayValue == 2){
+					withdraw()
+				}else if(displayValue == 3){
+					deposit()
+				}else{
+					numInput.html('Enter a valid number between 1 and 3')
+					displayValue = ''
+					setTimeout(function(){
+						numInput.html('')
+					},1500)
+				}
+		}
+		function withdraw(){
+			option1 = "Enter the amount you want to withdraw"
+			instruction.html(option1);
+			displayValue = '';
+			numInput.html(numberWithCommas2(displayValue))
+			isOption = false
+			isWithdraw = true
+		}
+
+		function myBalance(){
+			instruction.html(`Your account balance is ₦${numberWithCommas2(balance)} <p>Would you like to perform another transaction?</p><p><span>'Yes'<span> press <span style='color:green'>Enter</span>, <span>'No' press <span style='color:red'>Cancel</span></p>`)
+			displayValue = '';
+			numInput.html('');
+			isOption = false;
+			tryAgain = true;
+		}
+
+		function deposit(){
+			option1 = "Enter the amount you want to deposit"
+			instruction.html(option1);
+			displayValue = '';
+			numInput.html(numberWithCommas2(displayValue))
+			isOption = false
+			isDeposit = true
+		}
+
+		function playAudio(){
+			audio.src = 'Moneycounting.mp3';
+			audio.play();
+		}
+		})	  
+
+		function numberWithCommas2(x) {
+		var parts = x.toString().split(".");
+		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return parts.join(".");
+		}
+
+	</script>
+</body>
+</html>
