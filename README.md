@@ -1,2 +1,3 @@
-# ATM
-Simulated an ATM machine using JavaScript/jQuery
+
+## **ATM simulation using JavaScript/jQuery**
+### *PIN: 1234*
