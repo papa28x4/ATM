@@ -1,3 +1,3 @@
 
-## **ATM simulation using JavaScript/jQuery**
+## **ATM simulation using JavaScript**
 ### *PIN: 1234*
